@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Submissionfdjsl;
-use App\Http\Requests\StoreSubmissionfdjslRequest;
-use App\Http\Requests\UpdateSubmissionfdjslRequest;
+use App\Models\Education;
+use App\Http\Requests\StoreEducationRequest;
+use App\Http\Requests\UpdateEducationRequest;
 
-class SubmissionfdjslController extends Controller
+class EducationController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -27,7 +27,7 @@ class SubmissionfdjslController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreSubmissionfdjslRequest $request)
+    public function store(StoreEducationRequest $request)
     {
         //
     }
@@ -35,7 +35,7 @@ class SubmissionfdjslController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Submissionfdjsl $submissionfdjsl)
+    public function show(Education $education)
     {
         //
     }
@@ -43,7 +43,7 @@ class SubmissionfdjslController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Submissionfdjsl $submissionfdjsl)
+    public function edit(Education $education)
     {
         //
     }
@@ -51,7 +51,7 @@ class SubmissionfdjslController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateSubmissionfdjslRequest $request, Submissionfdjsl $submissionfdjsl)
+    public function update(UpdateEducationRequest $request, Education $education)
     {
         //
     }
@@ -59,7 +59,7 @@ class SubmissionfdjslController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Submissionfdjsl $submissionfdjsl)
+    public function destroy(Education $education)
     {
         //
     }

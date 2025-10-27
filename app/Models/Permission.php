@@ -9,4 +9,7 @@ class Permission extends Model
 {
     /** @use HasFactory<\Database\Factories\PermissionFactory> */
     use HasFactory;
+
+    public $guarded = [];
+
 }

@@ -9,4 +9,7 @@ class Proficiency extends Model
 {
     /** @use HasFactory<\Database\Factories\ProficiencyFactory> */
     use HasFactory;
+    
+
+    public $guarded = [];
 }

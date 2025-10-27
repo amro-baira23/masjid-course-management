@@ -9,4 +9,7 @@ class Option extends Model
 {
     /** @use HasFactory<\Database\Factories\OptionFactory> */
     use HasFactory;
+
+    public $guarded = [];
+
 }

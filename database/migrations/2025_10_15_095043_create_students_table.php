@@ -13,17 +13,15 @@ return new class extends Migration
     {
         Schema::create('students', function (Blueprint $table) {
             $table->id();
-            $table->string('phone', 10);
             $table->string('address', 20);
             $table->enum('gender', ["M", "F"]);
-            $table->string('education', 20);
+            $table->string('education', 20)->nullable();
             $table->string('father_name', 20);
             $table->string('father_occupation', 20);
             $table->string('mother_name', 20);
             $table->string('mother_occupation', 20);
             $table->date('birth_date');
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->foreignId("proficiency_id")->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }

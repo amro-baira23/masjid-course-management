@@ -5,8 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Submissionfdjsl extends Model
+class Education extends Model
 {
-    /** @use HasFactory<\Database\Factories\SubmissionfdjslFactory> */
+    /** @use HasFactory<\Database\Factories\EducationFactory> */
     use HasFactory;
+
+    public $guarded = [];
+
 }

@@ -9,4 +9,12 @@ class Role extends Model
 {
     /** @use HasFactory<\Database\Factories\RoleFactory> */
     use HasFactory;
+
+    public $guarded = [];
+
+    const CREATED_AT = null;
+
+    const UPDATED_AT = null;
+
+
 }

@@ -2,11 +2,39 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Http\Requests\AuthenticateUserRequest;
+use App\Http\Services\AuthService;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 
-class AuthController extends Controller
+class AuthController implements HasMiddleware
 {
-    public function login(){
-        return "hi there";
+    public function __construct(private AuthService $authService)
+    {
     }
+
+    public static function middleware(): array
+    {
+        return [
+            new Middleware('auth:api', except: ['login']),
+            new Middleware("is_active_user", except: ['login'])
+        ];
+    }
+    
+    public function login(AuthenticateUserRequest $request){
+        $data = $this->authService->login($request);
+        return $data;
+    }
+
+        
+    public function refresh(){
+        $data = $this->authService->refresh();
+        return $data;
+    }
+
+    public function logout(){
+        $data = $this->authService->logout();
+        return $data;
+    }
+
 }

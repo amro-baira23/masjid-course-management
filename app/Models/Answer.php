@@ -9,4 +9,7 @@ class Answer extends Model
 {
     /** @use HasFactory<\Database\Factories\AnswerFactory> */
     use HasFactory;
+
+    public $guarded = [];
+
 }

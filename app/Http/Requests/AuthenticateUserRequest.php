@@ -4,14 +4,14 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreSubmissionfdjslRequest extends FormRequest
+class AuthenticateUserRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,10 @@ class StoreSubmissionfdjslRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            /* @example super_admin1 */
+            "username" => ["required"],
+            /* @example password123 */
+            "password" => ["required"],
         ];
     }
 }

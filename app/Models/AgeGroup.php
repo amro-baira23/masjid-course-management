@@ -10,5 +10,7 @@ class AgeGroup extends Model
     /** @use HasFactory<\Database\Factories\AgeGroupFactory> */
     use HasFactory;
 
+    public $guarded = [];
+
     
 }

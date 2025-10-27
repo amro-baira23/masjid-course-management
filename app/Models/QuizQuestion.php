@@ -9,4 +9,7 @@ class QuizQuestion extends Model
 {
     /** @use HasFactory<\Database\Factories\QuizQuestionFactory> */
     use HasFactory;
+
+    public $guarded = [];
+
 }

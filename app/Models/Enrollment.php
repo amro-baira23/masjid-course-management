@@ -9,4 +9,7 @@ class Enrollment extends Model
 {
     /** @use HasFactory<\Database\Factories\EnrollmentFactory> */
     use HasFactory;
+
+    public $guarded = [];
+
 }

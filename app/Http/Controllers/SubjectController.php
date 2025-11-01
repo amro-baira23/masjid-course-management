@@ -5,60 +5,42 @@ namespace App\Http\Controllers;
 use App\Models\Subject;
 use App\Http\Requests\StoreSubjectRequest;
 use App\Http\Requests\UpdateSubjectRequest;
+use App\Http\Resources\SubjectResource;
+use App\Models\AgeGroup;
+use Illuminate\Support\Facades\DB;
 
 class SubjectController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+
     public function index()
     {
-        //
+
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(StoreSubjectRequest $request)
     {
-        //
+         $subject = DB::transaction(function () use ($request){
+            $age_group = AgeGroup::findOr($request->age_group_id,function() use ($request) {
+                return AgeGroup::create(["name" => $request->age_group]);
+            });
+
+            $subject = Subject::findOr($request->subject_id,function() use ($request ,$age_group) {
+                return Subject::create([
+                    "name" => $request->subject_name,
+                    "age_group_id" => $age_group->id,
+                ]);
+            });
+
+            return $subject;
+        });
+        return SubjectResource::make($subject);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Subject $subject)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Subject $subject)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(UpdateSubjectRequest $request, Subject $subject)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Subject $subject)
     {
         //

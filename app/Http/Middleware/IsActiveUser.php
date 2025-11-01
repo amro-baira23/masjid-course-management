@@ -15,9 +15,9 @@ class IsActiveUser
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (!$request->user()->is_active){
+        if ($request->user()->is_active){
             return response([
-                "message" => "Unactive User."
+                "message" => "This account is inactive."
                 ],
                 403
             );

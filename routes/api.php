@@ -1,6 +1,9 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CourseController;
+use App\Http\Controllers\QuizController;
+use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -16,8 +19,8 @@ Route::prefix('/users')->group(function () {
     Route::post('/students', [UserController::class, 'registerStudents']);
 });
 
-Route::prefix('/tests')->group(function () {
-
+Route::prefix('/quizzes')->group(function () {
+    Route::post('/', [QuizController::class, 'store']);
 });
 
 Route::prefix('/enrollments')->group(function () {
@@ -27,6 +30,13 @@ Route::prefix('/enrollments')->group(function () {
 
 
 Route::prefix('/courses')->group(function () {
+    Route::post('/', [CourseController::class, 'store']);
+    
+});
+
+
+Route::prefix('/subjects')->group(function () {
+    Route::post('/', [SubjectController::class, 'store']);
     
 });
 

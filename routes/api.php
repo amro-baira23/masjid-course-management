@@ -1,10 +1,13 @@
 <?php
 
+use App\Http\Controllers\AgeGroupController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CourseController;
+use App\Http\Controllers\EnrollmentController;
 use App\Http\Controllers\QuizController;
 use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\UserController;
+use App\Models\AgeGroup;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('/auth')->group(function () {
@@ -23,7 +26,17 @@ Route::prefix('/quizzes')->group(function () {
     Route::post('/', [QuizController::class, 'store']);
 });
 
+
+Route::prefix('/age_groups')->group(function () {
+    Route::get('/', [AgeGroupController::class, 'index']);
+    Route::post('/', [AgeGroupController::class, 'store']);
+    Route::post('/bulk', [AgeGroupController::class, 'bulkStore']);
+    Route::delete('/bulk', [AgeGroupController::class, 'bulkDelete']);
+
+});
+
 Route::prefix('/enrollments')->group(function () {
+    Route::post('/', [EnrollmentController::class, 'store']);
 
 });
 

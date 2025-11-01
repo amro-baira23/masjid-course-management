@@ -30,9 +30,15 @@ class StudentResource extends JsonResource
             "mother_occupation" => $this->mother_occupation,
             "address" => $this->address,
             "gender" => $this->gender,
-            "role" => $this->user->role->name, 
             "role_id" => $this->user->role->id, 
+            "role" => $this->user->role->name, 
             "is_active" => $this->user->is_active,
+            "age_group_id" => $this->whenLoaded("age_group",function(){
+                return $this->age_group->id;
+            }),
+            "age_group" => $this->whenLoaded("age_group",function(){
+                return $this->age_group->name;
+            }),
             "session" => [
                 "access_token" => $this->access_token,
                 "token_type" => "bearer",

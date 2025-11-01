@@ -44,6 +44,8 @@ class RegisterStudentRequest extends RegisterUserRequest
             "mother_occupation" => ["required","string"],
             "address" => ["required","string"],
             "gender" => ["required","string",   Rule::in(["M", "F"]),],
+            /* @example 1 */
+            "age_group_id" => ["required","integer","exists:age_groups,id"]
         ];
     }
 }

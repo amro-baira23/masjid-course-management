@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreAgeGroupRequest extends FormRequest
+class BulkDestroyAgeGroupRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,8 +22,9 @@ class StoreAgeGroupRequest extends FormRequest
     public function rules(): array
     {
         return [
-            /* @example college first year */
-            "name" => ["required"]
+            // @ example [5,6]
+            "age_group_ids" => ["required", "array"],
+            "age_group_ids.*" => ["required", "exists:age_groups,id"],
         ];
     }
 }

@@ -87,6 +87,7 @@ class UserService{
                 "address" => $request->address,
                 "gender" => $request->gender,
                 "user_id" => $user->id,
+                "age_group_id" => $request->age_group_id,
             ]);
             $student->access_token = $user->access_token;
 

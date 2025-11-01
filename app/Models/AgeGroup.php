@@ -12,5 +12,9 @@ class AgeGroup extends Model
 
     public $guarded = [];
 
-    
+    const CREATED_AT = null;
+    const UPDATED_AT = null;
+
+
+
 }

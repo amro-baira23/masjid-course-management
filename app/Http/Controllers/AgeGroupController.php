@@ -2,65 +2,57 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\BulkDestroyAgeGroupRequest;
+use App\Http\Requests\BulkStoreAgeGroupRequest;
 use App\Models\AgeGroup;
 use App\Http\Requests\StoreAgeGroupRequest;
 use App\Http\Requests\UpdateAgeGroupRequest;
+use App\Http\Resources\AgeGroupResource;
 
 class AgeGroupController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        $age_groups = AgeGroup::paginate(10);
+        return AgeGroupResource::collection($age_groups);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(StoreAgeGroupRequest $request)
     {
-        //
+        $age_group = AgeGroup::create([
+            "name" => $request->name,
+        ]);
+        return AgeGroupResource::make($age_group);
     }
 
-    /**
-     * Display the specified resource.
-     */
+    public function bulkStore(BulkStoreAgeGroupRequest $request)
+    {
+        $age_groups = [];
+        foreach($request->age_groups as $ag){
+            $age_groups[] = AgeGroup::create([
+            "name" => $ag["name"],
+            ]);
+        }
+        return AgeGroupResource::collection($age_groups);
+    }
+
     public function show(AgeGroup $ageGroup)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(AgeGroup $ageGroup)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(UpdateAgeGroupRequest $request, AgeGroup $ageGroup)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(AgeGroup $ageGroup)
     {
         //
+    }
+
+     public function bulkDelete(BulkDestroyAgeGroupRequest $request)
+    {
+        AgeGroup::destroy($request->age_group_ids);
     }
 }

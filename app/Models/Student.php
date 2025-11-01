@@ -17,4 +17,8 @@ class Student extends Model
         return $this->belongsTo(User::class,"user_id");
     }
 
+    public function age_group() : BelongsTo {
+        return $this->belongsTo(AgeGroup::class,"age_group_id");
+    }
+
 }

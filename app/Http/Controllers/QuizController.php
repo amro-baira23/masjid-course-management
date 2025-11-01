@@ -5,62 +5,53 @@ namespace App\Http\Controllers;
 use App\Models\Quiz;
 use App\Http\Requests\StoreQuizRequest;
 use App\Http\Requests\UpdateQuizRequest;
+use App\Http\Resources\QuizResource;
+use App\Http\Services\QuestionService;
+use Illuminate\Support\Facades\DB;
 
 class QuizController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+
+    public function __construct(private QuestionService $questionService)
+    {
+        
+    }
+
     public function index()
     {
-        //
+        
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreQuizRequest $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
     public function show(Quiz $quiz)
     {
-        //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Quiz $quiz)
+    public function store(StoreQuizRequest $request)
     {
-        //
+        $quiz = DB::transaction(function() use ($request){
+            $quiz = Quiz::create([
+                "course_id" => $request->course_id,
+                "name" => $request->name,
+            ]);
+            
+            $question_ids = array_merge(
+                $request->question_ids,
+                $this->questionService->bulkCreate($request->questions, $quiz)
+            );
+
+            $quiz->questions()->attach($question_ids);
+            
+            return $quiz;  
+        });
+        $quiz->load("questions.options");
+        return QuizResource::make($quiz);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(UpdateQuizRequest $request, Quiz $quiz)
     {
-        //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Quiz $quiz)
     {
-        //
     }
 }

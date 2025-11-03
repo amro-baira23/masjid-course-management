@@ -39,11 +39,19 @@ class StudentResource extends JsonResource
             "age_group" => $this->whenLoaded("age_group",function(){
                 return $this->age_group->name;
             }),
-            "session" => [
-                "access_token" => $this->access_token,
-                "token_type" => "bearer",
-                "expires_in" => Auth::factory()->getTTL(),
-            ]
+            $this->mergeWhen(
+                $this->access_token != null,[
+                "session" => [
+                    "access_token" => $this->access_token,
+                    "token_type" => "bearer",
+                    "expires_in" => Auth::factory()->getTTL(),
+                ]
+            ]),
+            "courses" => $this->whenLoaded(
+                "courses",
+                CourseResource::collection($this->courses()->get())
+            ),
+         
         ];
     }
 }

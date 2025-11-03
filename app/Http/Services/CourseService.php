@@ -17,7 +17,7 @@ class CourseService{
             $age_group = AgeGroup::findOr($request->age_group_id,function() use ($request) {
                 return AgeGroup::create(["name" => $request->age_group]);
             });
-
+            
             $subject = Subject::findOr($request->subject_id,function() use ($request ,$age_group) {
                 return Subject::create([
                     "name" => $request->subject_name,

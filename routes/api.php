@@ -7,8 +7,8 @@ use App\Http\Controllers\EnrollmentController;
 use App\Http\Controllers\QuizController;
 use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\UserController;
-use App\Models\AgeGroup;
 use Illuminate\Support\Facades\Route;
+
 
 Route::prefix('/auth')->group(function () {
     Route::post('/sessions', [AuthController::class, 'login']);
@@ -22,9 +22,6 @@ Route::prefix('/users')->group(function () {
     Route::post('/students', [UserController::class, 'registerStudents']);
 });
 
-Route::prefix('/quizzes')->group(function () {
-    Route::post('/', [QuizController::class, 'store']);
-});
 
 
 Route::prefix('/age_groups')->group(function () {
@@ -36,22 +33,35 @@ Route::prefix('/age_groups')->group(function () {
 });
 
 Route::prefix('/enrollments')->group(function () {
+    Route::get('/students', [EnrollmentController::class, 'indexByStudents']);
+    Route::get('/courses', [EnrollmentController::class, 'indexByCourses']);
     Route::post('/', [EnrollmentController::class, 'store']);
 
 });
 
-
+Route::prefix('/subjects')->group(function () {
+    Route::get('/', [SubjectController::class, 'index']);
+    Route::post('/', [SubjectController::class, 'store']);
+    
+});
 
 Route::prefix('/courses')->group(function () {
+    Route::get('/', [CourseController::class, 'index']);
     Route::post('/', [CourseController::class, 'store']);
     
 });
 
+Route::prefix('/quizzes')->group(function () {
+    Route::post('/', [QuizController::class, 'store']);
+});
 
-Route::prefix('/subjects')->group(function () {
+Route::prefix('/submissions')->group(function () {
+    Route::get('/', [SubjectController::class, 'index']);
     Route::post('/', [SubjectController::class, 'store']);
     
 });
+
+
 
 
 // Route::middleware('manage-user')->prefix('users')->group(function () {

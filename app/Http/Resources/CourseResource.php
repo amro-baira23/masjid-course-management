@@ -27,6 +27,10 @@ class CourseResource extends JsonResource
             "days" => $this->days,
             "start_date" => $this->start_date,
             "end_date" => $this->end_date,
+            "students" => $this->whenLoaded(
+                "students",
+                StudentResource::collection($this->students()->get())
+            ),
         ];
     }
 }

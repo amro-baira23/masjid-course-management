@@ -5,6 +5,7 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
@@ -58,6 +59,15 @@ class User extends Authenticatable implements JWTSubject
 
     public function role() : BelongsTo {
         return $this->belongsTo(Role::class,"role_id");
+    }
+
+    public function student() : HasOne {
+        return $this->hasOne(Student::class,"user_id");
+    }
+
+    public function isStudent(): bool{
+        $has_student_role = Role::findOr($this->role_id,fn () => false)->name == "student"; 
+        return $has_student_role && $this->student()->exists();
     }
 
     protected function casts(): array

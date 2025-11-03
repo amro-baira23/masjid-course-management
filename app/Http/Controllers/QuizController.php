@@ -19,7 +19,8 @@ class QuizController extends Controller
 
     public function index()
     {
-        
+        $data = Quiz::with("questions.options")->paginate(20);
+        return QuizResource::collection($data);
     }
 
     public function show(Quiz $quiz)

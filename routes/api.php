@@ -6,6 +6,7 @@ use App\Http\Controllers\CourseController;
 use App\Http\Controllers\EnrollmentController;
 use App\Http\Controllers\QuizController;
 use App\Http\Controllers\SubjectController;
+use App\Http\Controllers\SubmissionController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -52,12 +53,13 @@ Route::prefix('/courses')->group(function () {
 });
 
 Route::prefix('/quizzes')->group(function () {
+    Route::get('/', [QuizController::class, 'index']);
     Route::post('/', [QuizController::class, 'store']);
 });
 
 Route::prefix('/submissions')->group(function () {
-    Route::get('/', [SubjectController::class, 'index']);
-    Route::post('/', [SubjectController::class, 'store']);
+    Route::get('/', [SubmissionController::class, 'index']);
+    Route::post('/', [SubmissionController::class, 'store']);
     
 });
 

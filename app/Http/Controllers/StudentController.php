@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\BulkUpdateStudentAgeGroupRequest;
 use App\Models\Student;
 use App\Http\Requests\StoreStudentRequest;
 use App\Http\Requests\UpdateStudentRequest;
+use App\Http\Resources\StudentResource;
 
 class StudentController extends Controller
 {
@@ -13,31 +15,16 @@ class StudentController extends Controller
      */
     public function index()
     {
-        //
+        return StudentResource::collection(Student::paginate(20));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreStudentRequest $request)
-    {
-        //
-    }
-
+   
     /**
      * Display the specified resource.
      */
     public function show(Student $student)
     {
-        //
+        return StudentResource::make($student);
     }
 
     /**
@@ -54,6 +41,17 @@ class StudentController extends Controller
     public function update(UpdateStudentRequest $request, Student $student)
     {
         //
+    }
+
+    public function bulkUpdateAgeGroups(BulkUpdateStudentAgeGroupRequest $request){
+        Student::whereIn("id",$request->student_ids)
+            ->update([
+                "age_group_id" => $request->age_group_id
+            ]);
+        
+        $students =  Student::with("age_group")
+            ->whereIn("id",$request->student_ids)->get();
+        return StudentResource::collection($students);
     }
 
     /**

@@ -33,12 +33,8 @@ class StudentResource extends JsonResource
             "role_id" => $this->user->role->id, 
             "role" => $this->user->role->name, 
             "is_active" => $this->user->is_active,
-            "age_group_id" => $this->whenLoaded("age_group",function(){
-                return $this->age_group->id;
-            }),
-            "age_group" => $this->whenLoaded("age_group",function(){
-                return $this->age_group->name;
-            }),
+            "age_group_id" => $this->whenLoaded("age_group")->id,
+            "age_group" => $this->whenLoaded("age_group")->name,
             $this->mergeWhen(
                 $this->access_token != null,[
                 "session" => [

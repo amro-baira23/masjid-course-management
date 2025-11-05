@@ -8,6 +8,8 @@ use App\Models\AgeGroup;
 use App\Http\Requests\StoreAgeGroupRequest;
 use App\Http\Requests\UpdateAgeGroupRequest;
 use App\Http\Resources\AgeGroupResource;
+use App\Http\Resources\StudentResource;
+use App\Models\Student;
 
 class AgeGroupController extends Controller
 {
@@ -36,6 +38,17 @@ class AgeGroupController extends Controller
             ]);
         }
         return AgeGroupResource::collection($age_groups);
+    }
+
+    public function indexStudents(){
+        return Student::whereHas("age_group",function($query){
+            return $query->where("id",2);
+        })->get();
+    }
+
+    public function indexEligibleStudents(AgeGroup $ageGroup){
+        return Student::whereBetween("birth_date",[$ageGroup->min_birthdate,$ageGroup->max_birthdate])
+            ->get();
     }
 
     public function show(AgeGroup $ageGroup)

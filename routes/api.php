@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\EnrollmentController;
 use App\Http\Controllers\QuizController;
+use App\Http\Controllers\StudentController;
 use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\SubmissionController;
 use App\Http\Controllers\UserController;
@@ -23,10 +24,20 @@ Route::prefix('/users')->group(function () {
     Route::post('/students', [UserController::class, 'registerStudents']);
 });
 
+Route::prefix('/students')->group(function () {
+    Route::get('/', [StudentController::class, 'index']);
+    Route::get('/{student}', [StudentController::class, 'show']);
+    Route::put("/age-groups",[StudentController::class,'bulkUpdateAgeGroups']);
+});
 
 
-Route::prefix('/age_groups')->group(function () {
+
+
+
+Route::prefix('/age-groups')->group(function () {
     Route::get('/', [AgeGroupController::class, 'index']);
+    Route::get('/students', [AgeGroupController::class, 'indexStudents']);
+    Route::get('/{ageGroup}/eligible-students', [AgeGroupController::class, 'indexEligibleStudents']);
     Route::post('/', [AgeGroupController::class, 'store']);
     Route::put('/{ageGroup}', [AgeGroupController::class, 'update']);
     Route::post('/bulk', [AgeGroupController::class, 'bulkStore']);

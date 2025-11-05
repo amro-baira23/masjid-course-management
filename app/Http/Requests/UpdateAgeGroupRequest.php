@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateAgeGroupRequest extends FormRequest
 {
@@ -11,7 +12,7 @@ class UpdateAgeGroupRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +23,12 @@ class UpdateAgeGroupRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            /* @example college first year */
+            "name" => ["unique:age_groups,name"],
+            /* @example 2001-01-01 */
+            "min_birthdate" => ["date",Rule::date()->format("Y-m-01")],
+            /* @example 2005-01-01 */
+            "max_birthdate" => ["date","after:min_birthdate",Rule::date()->format("Y-m-01")],
         ];
     }
 }

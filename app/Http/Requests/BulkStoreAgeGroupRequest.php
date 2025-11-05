@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class BulkStoreAgeGroupRequest extends FormRequest
 {
@@ -22,9 +23,12 @@ class BulkStoreAgeGroupRequest extends FormRequest
     public function rules(): array
     {
         return [
-            /* @example [{"name": "high school"},{"name": "middle school"}] */
-            "age_groups" => ["required","array"],
-            "age_groups.*.name" => ["required","string"]
+            "age_groups" => ["required","array","size:2"],
+            "age_groups.*.name" => ["required","string","distinct","unique:age_groups,name"],
+              /* @example 2001-01-01 */
+            "age_groups.*.min_birthdate" => ["required","date",Rule::date()->format("Y-m-01")],
+            /* @example 2005-01-01 */
+            "age_groups.*.max_birthdate" => ["required","date","after:min_birthdate",Rule::date()->format("Y-m-01")],
         ];
     }
 }

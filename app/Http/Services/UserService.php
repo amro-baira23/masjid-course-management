@@ -96,5 +96,4 @@ class UserService{
 
         return StudentResource::make($student);
     }
-    
 }

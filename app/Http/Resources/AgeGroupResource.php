@@ -4,6 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Carbon;
 
 class AgeGroupResource extends JsonResource
 {
@@ -17,6 +18,8 @@ class AgeGroupResource extends JsonResource
         return [
             "id" => $this->id,
             "name" => $this->name,
+            "min_birthdate" => Carbon::parse($this->min_birthdate)->format("Y-m-d"),
+            "max_birthdate" => Carbon::parse($this->max_birthdate)->format("Y-m-d"),
         ];
     }
 }

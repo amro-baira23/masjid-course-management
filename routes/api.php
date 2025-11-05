@@ -28,6 +28,7 @@ Route::prefix('/users')->group(function () {
 Route::prefix('/age_groups')->group(function () {
     Route::get('/', [AgeGroupController::class, 'index']);
     Route::post('/', [AgeGroupController::class, 'store']);
+    Route::put('/{ageGroup}', [AgeGroupController::class, 'update']);
     Route::post('/bulk', [AgeGroupController::class, 'bulkStore']);
     Route::delete('/bulk', [AgeGroupController::class, 'bulkDelete']);
 

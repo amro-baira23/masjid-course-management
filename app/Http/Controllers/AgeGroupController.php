@@ -21,6 +21,8 @@ class AgeGroupController extends Controller
     {
         $age_group = AgeGroup::create([
             "name" => $request->name,
+            "min_birthdate" => $request->min_birthdate,
+            "max_birthdate" => $request->max_birthdate,
         ]);
         return AgeGroupResource::make($age_group);
     }
@@ -43,7 +45,8 @@ class AgeGroupController extends Controller
 
     public function update(UpdateAgeGroupRequest $request, AgeGroup $ageGroup)
     {
-        //
+        $ageGroup->update($request->validated());
+        return AgeGroupResource::make($ageGroup);
     }
 
     public function destroy(AgeGroup $ageGroup)

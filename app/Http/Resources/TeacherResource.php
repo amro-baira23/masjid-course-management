@@ -29,11 +29,14 @@ class TeacherResource extends JsonResource
             "role" => $this->user->role->name, 
             "role_id" => $this->user->role->id, 
             "is_active" => $this->user->is_active,
-            "session" => [
-                "access_token" => $this->access_token,
-                "token_type" => "bearer",
-                "expires_in" => Auth::factory()->getTTL(),
-            ]
+            $this->mergeWhen(
+                $this->access_token != null,[
+                "session" => [
+                    "access_token" => $this->access_token,
+                    "token_type" => "bearer",
+                    "expires_in" => Auth::factory()->getTTL(),
+                ]
+            ]),
         ];
     }
 }

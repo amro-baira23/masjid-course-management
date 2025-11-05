@@ -33,9 +33,7 @@ class StoreCourseRequest extends FormRequest
             /* @example sophomores */
             "age_group" => ["exclude_with:age_group","required_with:subject_name","string"],
 
-            /* @example 1 */
-            "teacher_id" => ["required", "integer","exists:teachers,id"],
-
+          
             /* @example 01:00 */
             "start_time" => ["required", Rule::date()->format("H:i")],
             /* @example 01:40 */
@@ -46,6 +44,13 @@ class StoreCourseRequest extends FormRequest
             "start_date" => ["required","date"],
             /* @example 2019-12-15 */
             "end_date" => ["present","nullable", "date"],
+
+            "groups.*" => ["required", "array"],
+            /* @example course_name_01 */
+            "groups.*.name" => ["required", "string"],
+            /* @example 1 */
+            "groups.*.teacher_id" => ["required", "integer","exists:teachers,id"],
+
         ];
     }
 }

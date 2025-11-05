@@ -5,6 +5,7 @@ use App\Http\Requests\StoreCourseRequest;
 use App\Http\Resources\CourseResource;
 use App\Models\AgeGroup;
 use App\Models\Course;
+use App\Models\Group;
 use App\Models\Question;
 use App\Models\Subject;
 use Illuminate\Support\Facades\DB;
@@ -28,17 +29,24 @@ class CourseService{
             $course = Course::create([
                     "name" => $request->course_name,
                     "subject_id" => $subject->id,
-                    "teacher_id" => $request->teacher_id,
                     "start_time" => $request->start_time,
                     "end_time" => $request->end_time,
                     "days" => $request->days,
                     "start_date" => $request->start_date,
                     "end_date" => $request->end_date,
             ]);
+            
+            foreach($request->groups as $group){
+                Group::create([
+                    "name" => $group["name"],
+                    "teacher_id" => $group["teacher_id"],
+                    "course_id" => $course["id"],
+                ]);
+            }
   
             return $course;
         });
-        
+        $course->load("groups.teacher");
         return CourseResource::make($course);
     }
 

@@ -22,7 +22,7 @@ class Student extends Model
         return $this->belongsTo(AgeGroup::class,"age_group_id");
     }
 
-    public function courses() : BelongsToMany {
-        return $this->belongsToMany(Course::class,"enrollments");
-    }
+    // public function courses() : BelongsToMany {
+    //     return $this->belongsToMany(Course::class,"enrollments");
+    // }
 }

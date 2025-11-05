@@ -47,10 +47,10 @@ class StudentResource extends JsonResource
                     "expires_in" => Auth::factory()->getTTL(),
                 ]
             ]),
-            "courses" => $this->whenLoaded(
-                "courses",
-                CourseResource::collection($this->courses()->get())
-            ),
+            // "courses" => $this->whenLoaded(
+            //     "courses",
+            //     CourseResource::collection($this->courses()->get())
+            // ),
          
         ];
     }

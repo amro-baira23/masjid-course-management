@@ -22,6 +22,8 @@ class IndexEnrollmentCourseRequest extends FormRequest
     public function rules(): array
     {
         return [
+            /* @example 1 */
+            "students_per_group" => [],
             "course_ids" => ["array"],
             "course_ids.*" => ["integer"]
            
